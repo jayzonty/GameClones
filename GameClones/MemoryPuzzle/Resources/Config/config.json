@@ -1,0 +1,50 @@
+{
+    "panels":
+    [
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel1",
+            "subRect": [38, 38, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel2",
+            "subRect": [826, 38, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel3",
+            "subRect": [1614, 38, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel4",
+            "subRect": [38, 824, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel5",
+            "subRect": [832, 828, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel6",
+            "subRect": [1614, 824, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel7",
+            "subRect": [38, 1614, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel8",
+            "subRect": [826, 1614, 748, 748]
+        },
+        {
+            "image": "Resources/Textures/CuteAnimals.png",
+            "name": "Panel8",
+            "subRect": [1614, 1614, 748, 748]
+        }
+    ]
+}
