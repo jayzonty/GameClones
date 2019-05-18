@@ -7,3 +7,4 @@
 4. Memory Puzzle [May 10, 2019]
 5. Simon [May 16, 2019]
    - Stopped using SFML at this point
+6. Sliding Puzzle [May 19, 2019]
