@@ -18,9 +18,9 @@ namespace Common {
 		Rect2D m_rect;
 
 		GLuint m_vbo, m_vao;
-		Color m_color;
+		Color m_fillColor;
 
-		Matrix m_transformationMatrix;
+		Matrix m_transform;
 
 		ShaderProgram m_shaderProgram;
 
@@ -31,7 +31,7 @@ namespace Common {
 			const float& y, 
 			const float& width, 
 			const float& height, 
-			const Color& color = Color::White) : Drawable(), m_rect(x, y, width, height), m_vbo(0), m_vao(0), m_color(color), m_isDirty(true) {
+			const Color& color = Color::White) : Drawable(), m_rect(x, y, width, height), m_vbo(0), m_vao(0), m_fillColor(color), m_isDirty(true) {
 			glGenVertexArrays(1, &m_vao);
 			glBindVertexArray(m_vao);
 
@@ -60,12 +60,12 @@ namespace Common {
 			glDeleteVertexArrays(1, &m_vao);
 		}
 
-		const Color& GetColor() const {
-			return m_color;
+		const Color& GetFillColor() const {
+			return m_fillColor;
 		}
 
-		virtual void SetColor(const Color& color) {
-			m_color = color;
+		virtual void SetFillColor(const Color& color) {
+			m_fillColor = color;
 			m_isDirty = true;
 		}
 
@@ -94,7 +94,7 @@ namespace Common {
 			glBindVertexArray(m_vao);
 
 			m_shaderProgram.Use();
-			m_shaderProgram.SetUniformMatrix4f("projectionViewModelMatrix", (transformationMatrix * m_transformationMatrix).mat);
+			m_shaderProgram.SetUniformMatrix4f("projectionViewModelMatrix", (transformationMatrix * m_transform).mat);
 			
 			glDrawArrays(GL_TRIANGLES, 0, 6);
 
@@ -105,7 +105,7 @@ namespace Common {
 
 	private:
 		void UpdateVertices() {
-			const Color& color = GetColor();
+			const Color& color = GetFillColor();
 			m_vertices[0] = { m_rect.x, m_rect.y, 0.0f, color.r, color.g, color.b, color.a };
 			m_vertices[1] = { m_rect.x + m_rect.width, m_rect.y, 0.0f, color.r, color.g, color.b, color.a };
 			m_vertices[2] = { m_rect.x + m_rect.width, m_rect.y + m_rect.height, 0.0f, color.r, color.g, color.b, color.a };

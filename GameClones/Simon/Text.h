@@ -8,8 +8,6 @@
 
 #include <cstdio>
 
-#include <GL/glew.h>
-
 #include "Vector.h"
 #include "Color.h"
 #include "ShaderProgram.h"

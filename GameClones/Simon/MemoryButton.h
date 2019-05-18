@@ -36,7 +36,7 @@ namespace GameClones {
 				m_highlightInterval(0.15f), m_blinkCount(2),
 				m_defaultColor(defaultColor), m_highlightColor(highlightColor),
 				m_blinksDone(0), m_isBlinking(false), m_isHighlighted(false) {
-				m_shape.SetColor(defaultColor);
+				m_shape.SetFillColor(defaultColor);
 			}
 
 			MemoryButton(int id) : MemoryButton(id, 0.0f, 0.0f, 0.0f, 0.0f) {
@@ -83,7 +83,7 @@ namespace GameClones {
 
 				if (m_isHighlighted && m_timer.IsFinished()) {
 					m_isHighlighted = false;
-					m_shape.SetColor(m_defaultColor);
+					m_shape.SetFillColor(m_defaultColor);
 
 					++m_blinksDone;
 					if (m_blinksDone < m_blinkCount) {
@@ -96,7 +96,7 @@ namespace GameClones {
 				}
 				else if (m_timer.IsFinished()) {
 					m_isHighlighted = true;
-					m_shape.SetColor(m_highlightColor);
+					m_shape.SetFillColor(m_highlightColor);
 
 					m_timer.SetDuration(m_highlightDuration);
 					m_timer.Start();
@@ -110,7 +110,7 @@ namespace GameClones {
 			void Blink(int numBlinks = 1) {
 				m_isBlinking = true;
 
-				m_shape.SetColor(m_highlightColor);
+				m_shape.SetFillColor(m_highlightColor);
 				m_isHighlighted = true;
 
 				m_timer.SetDuration(m_highlightDuration);

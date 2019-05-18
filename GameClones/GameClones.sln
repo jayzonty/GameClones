@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MemoryPuzzle", "MemoryPuzzl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Simon", "Simon\Simon.vcxproj", "{0F9EC31C-A6C7-4AF5-84FD-56B3A555D2F0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SlidingPuzzle", "SlidingPuzzle\SlidingPuzzle.vcxproj", "{CFD1DEBD-6773-486D-80B9-6A03C0B3CFC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -39,6 +41,10 @@ Global
 		{0F9EC31C-A6C7-4AF5-84FD-56B3A555D2F0}.Debug|x86.Build.0 = Debug|Win32
 		{0F9EC31C-A6C7-4AF5-84FD-56B3A555D2F0}.Release|x86.ActiveCfg = Release|Win32
 		{0F9EC31C-A6C7-4AF5-84FD-56B3A555D2F0}.Release|x86.Build.0 = Release|Win32
+		{CFD1DEBD-6773-486D-80B9-6A03C0B3CFC4}.Debug|x86.ActiveCfg = Debug|Win32
+		{CFD1DEBD-6773-486D-80B9-6A03C0B3CFC4}.Debug|x86.Build.0 = Debug|Win32
+		{CFD1DEBD-6773-486D-80B9-6A03C0B3CFC4}.Release|x86.ActiveCfg = Release|Win32
+		{CFD1DEBD-6773-486D-80B9-6A03C0B3CFC4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
