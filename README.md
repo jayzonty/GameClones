@@ -8,3 +8,4 @@
 5. Simon [May 16, 2019]
    - Stopped using SFML at this point
 6. Sliding Puzzle [May 19, 2019]
+7. Nibbles (Snake) [May 20, 2019]
