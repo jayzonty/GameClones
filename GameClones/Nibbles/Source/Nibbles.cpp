@@ -230,7 +230,7 @@ namespace GameClones {
 				m_statusText.SetString("You lost (Score: " + std::to_string(m_score) + ")");
 				m_statusText.ComputeSize(&textWidth, &textHeight);
 				m_statusText.SetPosition(
-					(WINDOW_WIDTH - textWidth) / 2, 
+					(WINDOW_WIDTH - textWidth) / 2.0f, 
 					textPositionY + textHeight + 15.0f);
 				m_renderTarget.Draw(m_statusText);
 			}
@@ -245,7 +245,7 @@ namespace GameClones {
 				m_statusText.SetString("You won (Score: " + std::to_string(m_score) + ")");
 				m_statusText.ComputeSize(&textWidth, &textHeight);
 				m_statusText.SetPosition(
-					(WINDOW_WIDTH - textWidth) / 2, 
+					(WINDOW_WIDTH - textWidth) / 2.0f, 
 					textPositionY + textHeight + 10.0f);
 				m_renderTarget.Draw(m_statusText);
 			}
