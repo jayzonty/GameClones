@@ -6,6 +6,7 @@
 #include "GLIncludes.h"
 
 #include <vector>
+#include <string>
 
 namespace Common {
 	class Font {

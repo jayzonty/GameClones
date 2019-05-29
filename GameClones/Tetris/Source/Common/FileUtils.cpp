@@ -5,7 +5,7 @@
 
 namespace Common {
 	namespace FileUtils {
-		bool FileUtils::ReadFile(const char* filePath, std::string& outputString) {
+		bool ReadFile(const char* filePath, std::string& outputString) {
 			std::ifstream file(filePath);
 			if (file.fail()) {
 				return false;

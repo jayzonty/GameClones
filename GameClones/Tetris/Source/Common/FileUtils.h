@@ -7,7 +7,7 @@
 
 namespace Common {
 	namespace FileUtils {
-		bool ReadFile(const char* filePath, std::string& outputString);
+		extern bool ReadFile(const char* filePath, std::string& outputString);
 	}
 }
 

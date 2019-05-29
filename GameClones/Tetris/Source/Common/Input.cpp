@@ -1,5 +1,7 @@
 #include "Input.h"
 
+#include <cmath>
+
 namespace Common {
 	Input* Input::m_instance = nullptr;
 
