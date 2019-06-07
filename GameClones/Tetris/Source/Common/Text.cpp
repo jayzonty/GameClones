@@ -3,7 +3,7 @@
 #include "Math.h"
 
 namespace Common {
-	Text::Text() : m_vbo(0), m_vao(0), m_font(nullptr), m_color(0), m_x(0), m_y(0) {
+	Text::Text() : m_vbo(0), m_vao(0), m_font(nullptr), m_color(0), m_lineSpacing(0.0f), m_lineHeight(0), m_x(0), m_y(0), m_horizontalAlign(HorizontalAlignment::LEFT), m_width(0), m_height(0) {
 		glGenVertexArrays(1, &m_vao);
 		glGenBuffers(1, &m_vbo);
 
@@ -24,12 +24,47 @@ namespace Common {
 		glDeleteVertexArrays(1, &m_vao);
 	}
 
+	void Text::SetLineSpacing(float lineSpacing) {
+		m_lineSpacing = lineSpacing;
+	}
+
 	void Text::SetFont(Font& font) {
 		m_font = &font;
 	}
 
 	void Text::SetString(const std::string& str) {
-		m_string = str;
+		m_lines.clear();
+
+		m_lineHeight = 0;
+
+		std::string line;
+		unsigned int lineWidth = 0;
+		for (char c : str) {
+			if (c == '\n') {
+				m_lines.emplace_back();
+				m_lines.back().str = line;
+				m_lines.back().width = lineWidth;
+
+				line = "";
+				lineWidth = 0;
+			}
+			else {
+				line += c;
+				const Font::GlyphMetrics* metrics = m_font->GetGlyphMetrics(c);
+				if (metrics != nullptr) {
+					m_lineHeight = Common::Math::Max(m_lineHeight, metrics->height);
+					lineWidth += metrics->advance;
+				}
+			}
+		}
+
+		if (!line.empty()) {
+			m_lines.emplace_back();
+			m_lines.back().str = line;
+			m_lines.back().width = lineWidth;
+		}
+
+		ComputeSize(&m_width, &m_height);
 	}
 	
 	void Text::SetColor(const Color& color) {
@@ -63,42 +98,61 @@ namespace Common {
 
 		float x = m_x;
 		float y = m_y;
-		for (size_t i = 0; i < m_string.size(); ++i) {
-			char c = m_string[i];
-			const Font::GlyphMetrics* metrics = m_font->GetGlyphMetrics(c);
-			if (nullptr == metrics) {
-				continue;
+		for (int j = m_lines.size() - 1; j >= 0; --j) {
+			if (j < m_lines.size() - 1) {
+				y += m_lineHeight + m_lineSpacing;
 			}
 
-			float xPos = static_cast<float>(x + metrics->bearingX);
-			float yPos = static_cast<float>(y - (metrics->height - metrics->bearingY));
+			Line& line = m_lines[j];
 
-			unsigned int width = metrics->width;
-			unsigned int height = metrics->height;
+			if (m_horizontalAlign == HorizontalAlignment::LEFT) {
+				x = m_x;
+			}
+			else if (m_horizontalAlign == HorizontalAlignment::CENTER) {
+				x = m_x + (m_width - line.width) / 2.0f;
+			}
+			else {
+				x = m_x + m_width - line.width;
+			}
 
-			GLfloat vertices[6][4] =
-			{
-				{xPos, yPos, 0.0f, 1.0f},
-				{xPos + width, yPos, 1.0f, 1.0f},
-				{xPos + width, yPos + height, 1.0f, 0.0f},
+			std::string& lineStr = line.str;
+			for (size_t i = 0; i < lineStr.size(); ++i) {
+				char c = lineStr[i];
+				const Font::GlyphMetrics* metrics = m_font->GetGlyphMetrics(c);
+				if (nullptr == metrics) {
+					continue;
+				}
 
-				{xPos + width, yPos + height, 1.0f, 0.0f},
-				{xPos, yPos + height, 0.0f, 0.0f},
-				{xPos, yPos, 0.0f, 1.0f}
-			};
+				float xPos = static_cast<float>(x + metrics->bearingX);
+				float yPos = static_cast<float>(y - (metrics->height - metrics->bearingY));
 
-			glBindTexture(GL_TEXTURE_2D, m_font->GetGlyphTextureId(c));
+				unsigned int width = metrics->width;
+				unsigned int height = metrics->height;
 
-			glActiveTexture(GL_TEXTURE0);
-			m_shader.SetUniform1i("tex", 0);
+				GLfloat vertices[6][4] =
+				{
+					{xPos, yPos, 0.0f, 1.0f},
+					{xPos + width, yPos, 1.0f, 1.0f},
+					{xPos + width, yPos + height, 1.0f, 0.0f},
 
-			glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
+					{xPos + width, yPos + height, 1.0f, 0.0f},
+					{xPos, yPos + height, 0.0f, 0.0f},
+					{xPos, yPos, 0.0f, 1.0f}
+				};
 
-			glDrawArrays(GL_TRIANGLES, 0, 6);
+				glBindTexture(GL_TEXTURE_2D, m_font->GetGlyphTextureId(c));
 
-			x += metrics->advance;
+				glActiveTexture(GL_TEXTURE0);
+				m_shader.SetUniform1i("tex", 0);
+
+				glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+				glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+
+				x += metrics->advance;
+			}
 		}
 
 		glBindVertexArray(0);
@@ -110,23 +164,32 @@ namespace Common {
 	}
 
 	void Text::ComputeSize(unsigned int* width, unsigned int* height) {
-		unsigned int w = 0, h = 0;
+		unsigned int w = 0, maxLineWidth = 0;
 
 		if (m_font->IsLoaded()) {
-			for (size_t i = 0; i < m_string.size(); ++i) {
-				char c = m_string[i];
-				const Font::GlyphMetrics* metrics = m_font->GetGlyphMetrics(c);
+			for (size_t j = 0; j < m_lines.size(); ++j) {
+				std::string& line = m_lines[j].str;
+				for (size_t i = 0; i < line.size(); ++i) {
+					char c = line[i];
+					const Font::GlyphMetrics* metrics = m_font->GetGlyphMetrics(c);
 
-				w += metrics->advance;
-				h = Math::Max(h, metrics->height);
+					w += metrics->advance;
+				}
+
+				maxLineWidth = Common::Math::Max(maxLineWidth, w);
+				w = 0;
 			}
 		}
 
 		if (nullptr != width) {
-			*width = w;
+			*width = maxLineWidth;
 		}
 		if (nullptr != height) {
-			*height = h;
+			*height = m_lines.size() * m_lineHeight + m_lineSpacing * (m_lines.size() - 1);
 		}
+	}
+
+	void Text::SetHorizontalAlignment(HorizontalAlignment horizontalAlign) {
+		m_horizontalAlign = horizontalAlign;
 	}
 }

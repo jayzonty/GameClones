@@ -18,7 +18,7 @@ namespace Common {
 			int bearingX;
 			int bearingY;
 
-			int advance;
+			long int advance;
 		};
 
 	private:

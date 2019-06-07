@@ -22,18 +22,42 @@
 
 namespace Common {
 	class Text : public Drawable {
+	public:
+		enum class HorizontalAlignment {
+			LEFT,
+			CENTER,
+			RIGHT
+		};
+
+	private:
+		struct Line {
+			std::string str;
+			unsigned int width;
+		};
+
 		GLuint m_vbo, m_vao;
 
 		Font* m_font;
 
 		ShaderProgram m_shader;
 		Color m_color;
-		std::string m_string;
+		std::vector<Line> m_lines;
+
+		float m_lineSpacing;
+
+		unsigned int m_lineHeight;
+
 		float m_x, m_y;
+
+		HorizontalAlignment m_horizontalAlign;
+
+		unsigned int m_width, m_height;
 
 	public:
 		Text();
 		~Text();
+
+		void SetLineSpacing(float lineSpacing);
 
 		void SetFont(Font& font);
 
@@ -47,6 +71,8 @@ namespace Common {
 		void Draw(const Matrix& transformationMatrix) override;
 
 		void ComputeSize(unsigned int* width, unsigned int* height);
+
+		void SetHorizontalAlignment(HorizontalAlignment horizontalAlign);
 	};
 }
 

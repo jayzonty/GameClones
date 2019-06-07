@@ -4,9 +4,11 @@
 #define ___GameClones_Tetris_h___
 
 #include "Common/BaseApplication.h"
+#include "Common/Font.h"
 #include "Common/RectangleShape.h"
 #include "Common/RenderTarget.h"
 #include "Common/Rect.h"
+#include "Common/Text.h"
 #include "Common/Timer.h"
 
 #include "Common/Window.h"
@@ -21,6 +23,16 @@ namespace GameClones {
 	private:
 		struct Line {
 			std::vector<int> contents;
+
+			bool IsFull() const {
+				for (size_t i = 0; i < contents.size(); ++i) {
+					if (contents[i] == -1) {
+						return false;
+					}
+				}
+
+				return true;
+			}
 		};
 
 		const unsigned int WINDOW_WIDTH = 600;
@@ -32,6 +44,8 @@ namespace GameClones {
 		float m_cellSize;
 
 		int m_tetriminoIndex;
+		int m_nextTetriminoIndex;
+
 		int m_blockX, m_blockY;
 		int m_orientation;
 
@@ -40,6 +54,7 @@ namespace GameClones {
 		Common::RenderTarget m_renderTarget;
 
 		Common::Rect<float> m_gridBounds;
+		Common::Rect<float> m_nextBlockUIBounds;
 
 		std::vector<GameClones::Tetris::Tetrimino> m_tetriminoes;
 
@@ -47,6 +62,18 @@ namespace GameClones {
 		float m_dropSpeed;
 
 		std::list<Line> m_lines;
+
+		Common::Font m_font;
+		Common::Text m_text;
+
+		bool m_isGameOver;
+
+		int m_score;
+		int m_totalLinesCleared;
+
+		int m_level;
+		int m_linesToNextLevel;
+
 
 	public:
 		TetrisGame();
@@ -72,17 +99,22 @@ namespace GameClones {
 		Tetris::Tetrimino CreateStickTetrimino();
 
 		void DrawTetrimino(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
+		void DrawTetrimino2(const Tetris::Tetrimino& tetrimino, int orientation, float originX, float originY);
 
-		bool CanPieceFall(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
-		bool CanPieceMoveLeft(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
-		bool CanPieceMoveRight(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
-		bool CanRotate(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
-
+		bool CanPieceMove(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY, int dirX, int dirY);
+		void Rotate(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
 		bool IsPieceColliding(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
 
 		void SpawnTetrimino();
 
 		Line& GetLine(int lineIndex);
+
+		// Returns the number of lines cleared
+		int ClearCompleteLines();
+
+		int GetYOnDrop(const Tetris::Tetrimino& tetrimino, int orientation, int cellX, int cellY);
+
+		void Reset();
 	};
 }
 

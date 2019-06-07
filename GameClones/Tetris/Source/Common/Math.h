@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef ___Common_MathUtils_h___
-#define ___Common_MathUtils_h___
+#ifndef ___Common_Math_h___
+#define ___Common_Math_h___
 
 #include <cmath>
 
