@@ -9,3 +9,5 @@
    - Stopped using SFML at this point
 6. Sliding Puzzle [May 19, 2019]
 7. Nibbles (Snake) [May 20, 2019]
+8. Tetris [June 8, 2019]
+   - Started developing with a Linux machine (Xubuntu 19.04)
