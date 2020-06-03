@@ -11,3 +11,5 @@
 7. Nibbles (Snake) [May 20, 2019]
 8. Tetris [June 8, 2019]
    - Started developing with a Linux machine (Xubuntu 19.04)
+9. Sudoku
+   - Start date: June 3, 2020
