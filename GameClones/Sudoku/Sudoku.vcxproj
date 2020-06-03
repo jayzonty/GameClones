@@ -35,6 +35,8 @@
     <ClCompile Include="Source\Common\WindowManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\SudokuApplication.cpp" />
+    <ClCompile Include="Source\SudokuGrid.cpp" />
+    <ClCompile Include="Source\SudokuGridRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Common\BaseApplication.h" />
@@ -64,6 +66,8 @@
     <ClInclude Include="Source\Common\Window.h" />
     <ClInclude Include="Source\Common\WindowManager.h" />
     <ClInclude Include="Source\SudokuApplication.h" />
+    <ClInclude Include="Source\SudokuGrid.h" />
+    <ClInclude Include="Source\SudokuGridRenderer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

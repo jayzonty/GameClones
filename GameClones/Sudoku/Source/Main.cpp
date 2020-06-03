@@ -12,7 +12,7 @@ int main() {
 	{
 		Common::Library::Initialize();
 
-		GameClones::SudokuApplication game;
+		GameClones::Sudoku::SudokuApplication game;
 		game.Run();
 
 		Common::Library::Cleanup();

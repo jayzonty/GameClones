@@ -69,6 +69,12 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SudokuGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SudokuGridRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Common\BaseApplication.h">
@@ -150,6 +156,12 @@
       <Filter>Header Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="Source\SudokuApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SudokuGrid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SudokuGridRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
