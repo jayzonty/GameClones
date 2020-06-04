@@ -18,6 +18,9 @@ namespace GameClones
 			SudokuGrid m_sudokuGrid;
 			SudokuGridRenderer m_sudokuGridRenderer;
 
+			size_t m_selectedRow;
+			size_t m_selectedColumn;
+
 		public:
 			SudokuApplication();
 			~SudokuApplication();
@@ -29,6 +32,9 @@ namespace GameClones
 			void Update(float deltaTime) override;
 			void Draw() override;
 			void Cleanup() override;
+
+		private:
+			float GetCellSize() const;
 		};
 	}
 }

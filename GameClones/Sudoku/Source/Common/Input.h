@@ -21,7 +21,18 @@ namespace Common {
 			R = GLFW_KEY_R,
 			S = GLFW_KEY_S,
 			
-			ESC = GLFW_KEY_ESCAPE
+			ESC = GLFW_KEY_ESCAPE,
+
+			ALPHA0 = GLFW_KEY_0,
+			ALPHA1 = GLFW_KEY_1,
+			ALPHA2 = GLFW_KEY_2,
+			ALPHA3 = GLFW_KEY_3,
+			ALPHA4 = GLFW_KEY_4,
+			ALPHA5 = GLFW_KEY_5,
+			ALPHA6 = GLFW_KEY_6,
+			ALPHA7 = GLFW_KEY_7,
+			ALPHA8 = GLFW_KEY_8,
+			ALPHA9 = GLFW_KEY_9
 		};
 
 		enum Button {
