@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_BaseApplication_h___
 #define ___Common_BaseApplication_h___
 
@@ -10,8 +8,10 @@
 
 #include "Window.h"
 
-namespace Common {
-	class BaseApplication {
+namespace Common
+{
+	class BaseApplication
+	{
 	private:
 		std::string m_applicationName;
 

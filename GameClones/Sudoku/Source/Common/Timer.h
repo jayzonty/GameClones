@@ -1,7 +1,10 @@
-#pragma once
+#ifndef ___Common_Timer_h___
+#define ___Common_Timer_h___
 
-namespace Common {
-	class Timer {
+namespace Common
+{
+	class Timer
+	{
 		float m_duration;
 		float m_timer;
 
@@ -9,51 +12,69 @@ namespace Common {
 		bool m_isFinished;
 
 	public:
-		Timer() : m_duration(0.0f), m_timer(0.0f), m_isRunning(false), m_isFinished(false) {
+		Timer() 
+			: m_duration(0.0f)
+			, m_timer(0.0f)
+			, m_isRunning(false)
+			, m_isFinished(false)
+		{
 		}
 
-		~Timer() {
+		~Timer()
+		{
 		}
 
-		float GetTime() const {
+		float GetTime() const
+		{
 			return m_timer;
 		}
 
-		void Update(float deltaTime) {
-			if (m_isRunning) {
+		void Update(float deltaTime)
+		{
+			if (m_isRunning)
+			{
 				m_timer += deltaTime;
-				if (m_timer >= m_duration) {
+				if (m_timer >= m_duration)
+				{
 					m_isFinished = true;
 					m_isRunning = false;
 				}
 			}
 		}
 
-		void SetDuration(const float& duration) {
+		void SetDuration(const float& duration)
+		{
 			m_duration = duration;
 		}
 
-		const float& GetDuration() const {
+		const float& GetDuration() const
+		{
 			return m_duration;
 		}
 
-		void Start() {
+		void Start()
+		{
 			m_isRunning = true;
 			m_isFinished = false;
 
 			m_timer = 0.0f;
 		}
 
-		void Stop() {
+		void Stop()
+		{
 			m_isRunning = false;
 		}
 
-		bool IsRunning() {
+		bool IsRunning()
+		{
 			return m_isRunning;
 		}
 
-		bool IsFinished() {
+		bool IsFinished()
+		{
 			return m_isFinished;
 		}
 	};
 }
+
+#endif // ___Common_Timer_h___

@@ -2,15 +2,18 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Common {
+namespace Common
+{
 	Window* WindowManager::m_mainWindow = nullptr;
 	const char* WindowManager::DEFAULT_WINDOW_TITLE = "Untitled";
 
-	Window* WindowManager::GetMainWindow() {
+	Window* WindowManager::GetMainWindow()
+	{
 		return m_mainWindow;
 	}
 
-	void WindowManager::Initialize() {
+	void WindowManager::Initialize()
+	{
 		m_mainWindow = new Window();
 		m_mainWindow->m_handle = glfwCreateWindow(
 			DEFAULT_WINDOW_WIDTH,
@@ -18,8 +21,10 @@ namespace Common {
 			DEFAULT_WINDOW_TITLE, nullptr, nullptr);
 	}
 
-	void WindowManager::Cleanup() {
-		if (nullptr != m_mainWindow) {
+	void WindowManager::Cleanup()
+	{
+		if (nullptr != m_mainWindow)
+		{
 			glfwDestroyWindow(m_mainWindow->GetHandle());
 		}
 

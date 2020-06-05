@@ -1,12 +1,12 @@
-#pragma once
-
 #ifndef ___Common_Window_h___
 #define ___Common_Window_h___
 
 #include <GLFW/glfw3.h>
 
-namespace Common {
-	class Window {
+namespace Common
+{
+	class Window
+	{
 		friend class WindowManager;
 
 		GLFWwindow* m_handle;

@@ -1,12 +1,12 @@
-#pragma once
-
 #ifndef ___Common_Color_h___
 #define ___Common_Color_h___
 
 #include <cstdint>
 
-namespace Common {
-	class Color {
+namespace Common
+{
+	class Color
+	{
 	public:
 		static const Color White;
 		static const Color Black;

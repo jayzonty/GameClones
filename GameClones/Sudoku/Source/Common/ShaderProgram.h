@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_ShaderProgram_h___
 #define ___Common_ShaderProgram_h___
 
@@ -7,8 +5,10 @@
 
 #include <string>
 
-namespace Common {
-	class ShaderProgram {
+namespace Common
+{
+	class ShaderProgram
+	{
 		GLuint m_program;
 		std::string m_lastErrorMessage;
 

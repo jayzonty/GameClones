@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_Button_h___
 #define ___Common_Button_h___
 
@@ -15,8 +13,10 @@
 #include "Font.h"
 #include "Color.h"
 
-namespace Common {
-	class Button : public Drawable {
+namespace Common
+{
+	class Button : public Drawable
+	{
 		std::vector< std::function<void(void)> > m_clickListeners;
 
 		Common::RectangleShape m_shape;

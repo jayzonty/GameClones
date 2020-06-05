@@ -1,6 +1,7 @@
 #include "Color.h"
 
-namespace Common {
+namespace Common
+{
 	const Color Color::White = Color(255, 255, 255, 255);
 	const Color Color::Black = Color(0, 0, 0, 0);
 	const Color Color::Gray = Color(128, 128, 128, 255);
@@ -18,20 +19,25 @@ namespace Common {
 	Color::Color(unsigned char red,
 		unsigned char green,
 		unsigned char blue,
-		unsigned char alpha) :
-		r(red), g(green), b(blue), a(alpha) {
+		unsigned char alpha)
+		: r(red), g(green), b(blue), a(alpha)
+	{
 	}
 
-	Color::Color(unsigned char color) : Color(color, color, color, color) {
+	Color::Color(unsigned char color) : Color(color, color, color, color)
+	{
 	}
 
-	Color::Color() : Color(255) {
+	Color::Color() : Color(255)
+	{
 	}
 
-	Color::Color(const Color& other) : Color(other.r, other.g, other.b, other.a) {
+	Color::Color(const Color& other) : Color(other.r, other.g, other.b, other.a)
+	{
 	}
 
-	Color& Color::operator=(const Color& other) {
+	Color& Color::operator=(const Color& other)
+	{
 		r = other.r;
 		g = other.g;
 		b = other.b;

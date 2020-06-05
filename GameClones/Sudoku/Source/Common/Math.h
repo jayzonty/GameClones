@@ -1,21 +1,24 @@
-#pragma once
-
 #ifndef ___Common_Math_h___
 #define ___Common_Math_h___
 
 #include <cmath>
 
-namespace Common {
-	namespace Math {
+namespace Common
+{
+	namespace Math
+	{
 		const double PI_D = atan(1.0) * 4.0;
 		const float PI_F = atanf(1.0) * 4.0f;
 
 		template <class T>
-		T Clamp(T value, T min, T max) {
-			if (value < min) {
+		T Clamp(T value, T min, T max)
+		{
+			if (value < min)
+			{
 				value = min;
 			}
-			else if (value > max) {
+			else if (value > max)
+			{
 				value = max;
 			}
 
@@ -23,18 +26,24 @@ namespace Common {
 		}
 
 		template <class T>
-		T Min(T a, T b) {
-			if (a <= b) {
+		T Min(T a, T b)
+		{
+			if (a <= b)
+			{
 				return a;
 			}
+
 			return b;
 		}
 
 		template <class T>
-		T Max(T a, T b) {
-			if (a > b) {
+		T Max(T a, T b)
+		{
+			if (a > b)
+			{
 				return a;
 			}
+
 			return b;
 		}
 	}

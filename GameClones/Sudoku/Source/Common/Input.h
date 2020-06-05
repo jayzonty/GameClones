@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_Input_h___
 #define ___Common_Input_h___
 
@@ -7,10 +5,13 @@
 
 #include <unordered_set>
 
-namespace Common {
-	class Input {
+namespace Common
+{
+	class Input
+	{
 	public:
-		enum Key {
+		enum Key
+		{
 			UP = GLFW_KEY_UP,
 			DOWN = GLFW_KEY_DOWN,
 			LEFT = GLFW_KEY_LEFT,
@@ -35,7 +36,8 @@ namespace Common {
 			ALPHA9 = GLFW_KEY_9
 		};
 
-		enum Button {
+		enum Button
+		{
 			LEFT_MOUSE = GLFW_MOUSE_BUTTON_LEFT,
 			MIDDLE_MOUSE = GLFW_MOUSE_BUTTON_MIDDLE,
 			RIGHT_MOUSE = GLFW_MOUSE_BUTTON_RIGHT

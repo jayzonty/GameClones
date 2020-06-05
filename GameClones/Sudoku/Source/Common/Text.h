@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_Text_h___
 #define ___Common_Text_h___
 
@@ -20,10 +18,13 @@
 
 #include <vector>
 
-namespace Common {
-	class Text : public Drawable {
+namespace Common
+{
+	class Text : public Drawable
+	{
 	public:
-		enum class HorizontalAlignment {
+		enum class HorizontalAlignment
+		{
 			LEFT,
 			CENTER,
 			RIGHT

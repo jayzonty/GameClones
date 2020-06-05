@@ -1,43 +1,50 @@
-#pragma once
-
 #ifndef ___Common_Matrix_h___
 #define ___Common_Matrix_h___
 
 #include <cstring>
 
-namespace Common {
-    class Matrix {
+namespace Common
+{
+    class Matrix
+	{
     public:
         float mat[16];
 
-		Matrix() {
+		Matrix()
+		{
 			memset(mat, 0, sizeof(mat));
 			mat[0] = mat[5] = mat[10] = mat[15] = 1.0f;
 		}
 
-		Matrix(const Matrix& other) {
+		Matrix(const Matrix& other)
+		{
 			memcpy(mat, other.mat, sizeof(mat));
 		}
 
-		static Matrix Identity() {
+		static Matrix Identity()
+		{
 			return Matrix();
 		}
 
-		float& operator[](int index) {
+		float& operator[](int index)
+		{
 			return mat[index];
 		}
 
-		const float& operator[](int index) const {
+		const float& operator[](int index) const
+		{
 			return mat[index];
 		}
 
-		Matrix& operator=(const Matrix& rhs) {
+		Matrix& operator=(const Matrix& rhs)
+		{
 			memcpy(mat, rhs.mat, sizeof(mat));
 			return *this;
 		}
     };
 
-	inline Matrix operator*(const Matrix& a, const Matrix& b) {
+	inline Matrix operator*(const Matrix& a, const Matrix& b)
+	{
 		Matrix ret;
 		for (int i = 0; i < 16; i++)
 		{
@@ -51,7 +58,8 @@ namespace Common {
 		return ret;
 	}
 
-	inline Matrix operator*(const Matrix& a, const float& s) {
+	inline Matrix operator*(const Matrix& a, const float& s)
+	{
 		Matrix ret;
 		for (int i = 0; i < 16; i++)
 		{

@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_Font_h___
 #define ___Common_Font_h___
 
@@ -8,10 +6,13 @@
 #include <vector>
 #include <string>
 
-namespace Common {
-	class Font {
+namespace Common
+{
+	class Font
+	{
 	public:
-		struct GlyphMetrics {
+		struct GlyphMetrics
+		{
 			unsigned int width;
 			unsigned int height;
 

@@ -3,17 +3,22 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-namespace Common {
-	Font::Font() : m_fontSize(30),
-		m_isLoaded(false) {
+namespace Common
+{
+	Font::Font()
+		: m_fontSize(30)
+		, m_isLoaded(false)
+	{
 		glGenTextures(128, m_glyphTextures);
 	}
 
-	Font::Font(const Font& other) {
+	Font::Font(const Font& other)
+	{
 		m_fontSize = other.m_fontSize;
 		m_glyphMetrics = other.m_glyphMetrics;
 
-		for (size_t i = 0; i < 128; ++i) {
+		for (size_t i = 0; i < 128; ++i)
+		{
 			m_glyphTextures[i] = other.m_glyphTextures[i];
 		}
 
@@ -22,13 +27,16 @@ namespace Common {
 		m_fontFilePath = other.m_fontFilePath;
 	}
 
-	Font::~Font() {
-		if (nullptr != m_glyphTextures) {
+	Font::~Font()
+	{
+		if (nullptr != m_glyphTextures)
+		{
 			glDeleteTextures(128, m_glyphTextures);
 		}
 	}
 
-	bool Font::Load(const char* fontFilePath) {
+	bool Font::Load(const char* fontFilePath)
+	{
 		// Reference: https://learnopengl.com/In-Practice/Text-Rendering
 
 		m_isLoaded = false;
@@ -37,11 +45,13 @@ namespace Common {
 		FT_Face ftFace;
 
 		// FT libraries return 0 on success
-		if (FT_Init_FreeType(&ftLibray)) {
+		if (FT_Init_FreeType(&ftLibray))
+		{
 			std::printf("Failed to load freetype library!\n");
 			return false;
 		}
-		if (FT_New_Face(ftLibray, fontFilePath, 0, &ftFace)) {
+		if (FT_New_Face(ftLibray, fontFilePath, 0, &ftFace))
+		{
 			std::printf("Failed to load font! %s\n", fontFilePath);
 			return false;
 		}
@@ -52,8 +62,10 @@ namespace Common {
 
 		FT_Set_Pixel_Sizes(ftFace, 0, m_fontSize);
 
-		for (int c = 0; c < 128; ++c) {
-			if (FT_Load_Char(ftFace, c, FT_LOAD_RENDER)) {
+		for (int c = 0; c < 128; ++c)
+		{
+			if (FT_Load_Char(ftFace, c, FT_LOAD_RENDER))
+			{
 				std::printf("Failed to load char %c\n", static_cast<char>(c));
 				continue;
 			}
@@ -72,7 +84,8 @@ namespace Common {
 				ftFace->glyph->bitmap.rows,
 				0, GL_RED, GL_UNSIGNED_BYTE, ftFace->glyph->bitmap.buffer);
 
-			GlyphMetrics metrics = {
+			GlyphMetrics metrics =
+			{
 				ftFace->glyph->bitmap.width,
 				ftFace->glyph->bitmap.rows,
 
@@ -94,26 +107,32 @@ namespace Common {
 		return true;
 	}
 
-	bool Font::IsLoaded() const {
+	bool Font::IsLoaded() const
+	{
 		return m_isLoaded;
 	}
 
-	void Font::SetSize(int fontSize) {
-		if (!m_isLoaded) {
+	void Font::SetSize(int fontSize)
+	{
+		if (!m_isLoaded)
+		{
 			return;
 		}
 
-		if (m_fontSize != fontSize) {
+		if (m_fontSize != fontSize)
+		{
 			m_fontSize = fontSize;
 			Load(m_fontFilePath.c_str());
 		}
 	}
 
-	const Font::GlyphMetrics* Font::GetGlyphMetrics(char c) {
+	const Font::GlyphMetrics* Font::GetGlyphMetrics(char c)
+	{
 		return &m_glyphMetrics[c];
 	}
 
-	GLuint Font::GetGlyphTextureId(char c) {
+	GLuint Font::GetGlyphTextureId(char c)
+	{
 		return m_glyphTextures[c];
 	}
 }

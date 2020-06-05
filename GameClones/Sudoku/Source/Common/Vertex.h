@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_Vertex_h___
 #define ___Common_Vertex_h___
 
@@ -7,8 +5,10 @@
 
 #include "Color.h"
 
-namespace Common {
-	struct Vertex {
+namespace Common
+{
+	struct Vertex
+	{
 		float x;
 		float y;
 		float z;

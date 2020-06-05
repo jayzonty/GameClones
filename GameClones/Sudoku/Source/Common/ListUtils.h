@@ -1,7 +1,5 @@
-#pragma once
-
-#ifndef ___GameClones_ListUtils_h___
-#define ___GameClones_ListUtils_h___
+#ifndef ___Common_ListUtils_h___
+#define ___Common_ListUtils_h___
 
 #include "Random.h"
 
@@ -9,12 +7,16 @@
 #include <list>
 #include <iterator>
 
-namespace GameClones {
-	namespace ListUtils {
+namespace Common
+{
+	namespace ListUtils
+	{
 		template <class T>
-		void Shuffle(std::vector<T>& list, unsigned int seed) {
+		void Shuffle(std::vector<T>& list, unsigned int seed)
+		{
 			Random random(seed);
-			for (int i = 0; i < list.size(); ++i) {
+			for (int i = 0; i < list.size(); ++i)
+			{
 				int swapIndex = random(i, list.size() - 1);
 				T temp = list[i];
 				list[i] = list[swapIndex];
@@ -23,11 +25,12 @@ namespace GameClones {
 		}
 
 		template <class T>
-		void Shuffle(std::vector<T>& list) {
+		void Shuffle(std::vector<T>& list)
+		{
 			unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
 			Shuffle(list, seed);
 		}
 	}
 }
 
-#endif // ___GameClones_ListUtils_h___
+#endif // ___Common_ListUtils_h___

@@ -5,9 +5,12 @@
 
 #include <cmath>
 
-namespace Common {
-	namespace MatrixTransform {
-		Matrix CreateTranslation(float tx, float ty, float tz) {
+namespace Common
+{
+	namespace MatrixTransform
+	{
+		Matrix CreateTranslation(float tx, float ty, float tz)
+		{
 			Matrix ret;
 			ret[12] = tx;
 			ret[13] = ty;
@@ -16,7 +19,8 @@ namespace Common {
 			return ret;
 		}
 
-		Matrix CreateScale(float sx, float sy, float sz) {
+		Matrix CreateScale(float sx, float sy, float sz)
+		{
 			Matrix ret;
 			ret[0] = sx;
 			ret[5] = sy;
@@ -25,9 +29,12 @@ namespace Common {
 			return ret;
 		}
 
-		Matrix CreateXRotation(float theta, bool isDegrees) {
+		Matrix CreateXRotation(float theta, bool isDegrees)
+		{
 			if (isDegrees)
+			{
 				theta = theta * Math::PI_F / 180.0f;
+			}
 
 			float c = cos(theta);
 			float s = sin(theta);
@@ -41,9 +48,12 @@ namespace Common {
 			return ret;
 		}
 
-		Matrix CreateYRotation(float theta, bool isDegrees) {
+		Matrix CreateYRotation(float theta, bool isDegrees)
+		{
 			if (isDegrees)
+			{
 				theta = theta * Math::PI_F / 180.0f;
+			}
 
 			float c = cos(theta);
 			float s = sin(theta);
@@ -57,9 +67,12 @@ namespace Common {
 			return ret;
 		}
 
-		Matrix CreateZRotation(float theta, bool isDegrees) {
+		Matrix CreateZRotation(float theta, bool isDegrees)
+		{
 			if (isDegrees)
+			{
 				theta = theta * Math::PI_F / 180.0f;
+			}
 
 			float c = cos(theta);
 			float s = sin(theta);
@@ -73,7 +86,8 @@ namespace Common {
 			return ret;
 		}
 
-		Matrix CreateOrtho(float left, float right, float bottom, float top, float near, float far) {
+		Matrix CreateOrtho(float left, float right, float bottom, float top, float near, float far)
+		{
 			Matrix ret;
 
 			ret[0] = 2 / (right - left); ret[4] = 0.0f; ret[8] = 0.0f; ret[12] = -(right + left) / (right - left);
@@ -84,11 +98,13 @@ namespace Common {
 			return ret;
 		}
 
-		Matrix CreateOrtho(float left, float right, float bottom, float top) {
+		Matrix CreateOrtho(float left, float right, float bottom, float top)
+		{
 			return CreateOrtho(left, right, bottom, top, 0.0f, -1.0f);
 		}
 
-		Matrix CreatePerspective(float fieldOfViewY, float width, float height, float near, float far) {
+		Matrix CreatePerspective(float fieldOfViewY, float width, float height, float near, float far)
+		{
 			Matrix ret;
 
 			fieldOfViewY = fieldOfViewY * Math::PI_F / 180.0f;
@@ -106,8 +122,8 @@ namespace Common {
 			return ret;
 		}
 
-		Matrix LookAt(const Vector3& eye, const Vector3& target, const Vector3& up) {
-
+		Matrix LookAt(const Vector3& eye, const Vector3& target, const Vector3& up)
+		{
 			Vector3 z = eye - target;
 			Vector3 x = Vector3::Cross(up, z);
 			Vector3 y = Vector3::Cross(z, x);

@@ -1,12 +1,12 @@
-#pragma once
-
 #ifndef ___Common_WindowManager_h___
 #define ___Common_WindowManager_h___
 
 #include "Window.h"
 
-namespace Common {
-	class WindowManager {
+namespace Common
+{
+	class WindowManager
+	{
 		friend class Library;
 
 		static Window* m_mainWindow;
@@ -21,7 +21,6 @@ namespace Common {
 	private:
 		static void Initialize();
 		static void Cleanup();
-
 	};
 }
 

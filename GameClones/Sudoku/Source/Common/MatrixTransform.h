@@ -1,13 +1,13 @@
-#pragma once
-
 #ifndef ___Common_MatrixTransform_h___
 #define ___Common_MatrixTransform_h___
 
 #include "Matrix.h"
 #include "Vector.h"
 
-namespace Common {
-	namespace MatrixTransform {
+namespace Common
+{
+	namespace MatrixTransform
+	{
 		Matrix CreateTranslation(float tx, float ty, float tz);
 
 		Matrix CreateScale(float sx, float sy, float sz);
@@ -29,4 +29,3 @@ namespace Common {
 }
 
 #endif // ___Common_MatrixTransform_h___
-

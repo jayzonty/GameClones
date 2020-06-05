@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef ___Common_RectangleShape_h___
 #define ___Common_RectangleShape_h___
 
@@ -12,8 +10,10 @@
 
 #include "GLIncludes.h"
 
-namespace Common {
-	class RectangleShape : public Drawable {
+namespace Common
+{
+	class RectangleShape : public Drawable
+	{
 		Rect<float> m_rect;
 
 		GLuint m_vbo, m_vao;

@@ -6,15 +6,19 @@
 
 #include <chrono>
 
-namespace Common {
-	BaseApplication::BaseApplication(const std::string& applicationName) : 
-		m_applicationName(applicationName) {
+namespace Common
+{
+	BaseApplication::BaseApplication(const std::string& applicationName)
+		: m_applicationName(applicationName)
+	{
 	}
 
-	BaseApplication::~BaseApplication() {
+	BaseApplication::~BaseApplication()
+	{
 	}
 
-	void BaseApplication::Run() {
+	void BaseApplication::Run()
+	{
 		Init();
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -24,7 +28,8 @@ namespace Common {
 		Window* mainWindow = WindowManager::GetMainWindow();
 		SetupWindow(mainWindow);
 
-		while (!glfwWindowShouldClose(mainWindow->GetHandle())) {
+		while (!glfwWindowShouldClose(mainWindow->GetHandle()))
+		{
 			int width, height;
 			mainWindow->GetSize(&width, &height);
 			glViewport(0, 0, width, height);
@@ -48,7 +53,8 @@ namespace Common {
 		Cleanup();
 	}
 
-	void BaseApplication::SetupWindow(Window* window) {
+	void BaseApplication::SetupWindow(Window* window)
+	{
 		window->SetTitle(m_applicationName.c_str());
 	}
 }

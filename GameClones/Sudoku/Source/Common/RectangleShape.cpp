@@ -3,23 +3,26 @@
 #include "MatrixTransform.h"
 #include "Math.h"
 
-namespace Common {
+namespace Common
+{
 	RectangleShape::RectangleShape(float x, float y,
 		float width, float height,
 		const Color& color) : Drawable(), m_rect(x, y, width, height), 
 		m_vbo(0), m_vao(0), m_fillColor(color), m_borderColor(Color::Black), 
 		m_leftBorderSize(0.0f), m_rightBorderSize(0.0f), 
-		m_topBorderSize(0.0f), m_bottomBorderSize(0.0f) {
+		m_topBorderSize(0.0f), m_bottomBorderSize(0.0f)
+	{
 		glGenVertexArrays(1, &m_vao);
 		glBindVertexArray(m_vao);
 
-		Vertex vertices[6] = {
-			{ 0.0f, 0.0f, 0.0f, 255, 255, 255, 255 },
-			{ 1.0f, 0.0f, 0.0f, 255, 255, 255, 255 },
-			{ 1.0f, 1.0f, 0.0f, 255, 255, 255, 255 },
-			{ 1.0f, 1.0f, 0.0f, 255, 255, 255, 255 },
-			{ 0.0f, 1.0f, 0.0f, 255, 255, 255, 255 },
+		Vertex vertices[6] =
+		{
 			{ 0.0f, 0.0f, 0.0f, 255, 255, 255, 255 }
+			, { 1.0f, 0.0f, 0.0f, 255, 255, 255, 255 }
+			, { 1.0f, 1.0f, 0.0f, 255, 255, 255, 255 }
+			, { 1.0f, 1.0f, 0.0f, 255, 255, 255, 255 }
+			, { 0.0f, 1.0f, 0.0f, 255, 255, 255, 255 }
+			, { 0.0f, 0.0f, 0.0f, 255, 255, 255, 255 }
 		};
 
 		glGenBuffers(1, &m_vbo);
@@ -39,31 +42,38 @@ namespace Common {
 		}
 	}
 
-	RectangleShape::RectangleShape() : RectangleShape(0, 0, 0, 0) {
+	RectangleShape::RectangleShape() : RectangleShape(0, 0, 0, 0)
+	{
 	}
 
-	RectangleShape::~RectangleShape() {
+	RectangleShape::~RectangleShape()
+	{
 		glDeleteBuffers(1, &m_vbo);
 		glDeleteVertexArrays(1, &m_vao);
 	}
 
-	const Color& RectangleShape::GetFillColor() const {
+	const Color& RectangleShape::GetFillColor() const
+	{
 		return m_fillColor;
 	}
 
-	void RectangleShape::SetFillColor(const Color& color) {
+	void RectangleShape::SetFillColor(const Color& color)
+	{
 		m_fillColor = color;
 	}
 
-	const Color& RectangleShape::GetBorderColor() const {
+	const Color& RectangleShape::GetBorderColor() const
+	{
 		return m_borderColor;
 	}
 
-	void RectangleShape::SetBorderColor(const Color& color) {
+	void RectangleShape::SetBorderColor(const Color& color)
+	{
 		m_borderColor = color;
 	}
 
-	void RectangleShape::SetBorderSizes(float left, float right, float top, float bottom) {
+	void RectangleShape::SetBorderSizes(float left, float right, float top, float bottom)
+	{
 		m_leftBorderSize = left;
 		m_rightBorderSize = right;
 		m_topBorderSize = top;
@@ -71,29 +81,35 @@ namespace Common {
 		UpdateTransform();
 	}
 
-	void RectangleShape::GetBorderSizes(float* left, float* right, float* top, float* bottom) {
+	void RectangleShape::GetBorderSizes(float* left, float* right, float* top, float* bottom)
+	{
 		*left = m_leftBorderSize;
 		*right = m_rightBorderSize;
 		*top = m_topBorderSize;
 		*bottom = m_bottomBorderSize;
 	}
 
-	void RectangleShape::SetPosition(float x, float y) {
+	void RectangleShape::SetPosition(float x, float y)
+	{
 		m_rect.x = x;
 		m_rect.y = y;
 		UpdateTransform();
 	}
 
-	void RectangleShape::SetSize(float width, float height) {
+	void RectangleShape::SetSize(float width, float height)
+	{
 		m_rect.width = width;
 		m_rect.height = height;
 		UpdateTransform();
 	}
 
-	const Rect<float>& RectangleShape::GetRect() const {
+	const Rect<float>& RectangleShape::GetRect() const
+	{
 		return m_rect;
 	}
-	void RectangleShape::Draw(const Matrix& transformationMatrix) {
+	
+	void RectangleShape::Draw(const Matrix& transformationMatrix)
+	{
 		glClear(GL_STENCIL_BUFFER_BIT);
 
 		glEnable(GL_BLEND);
@@ -140,7 +156,8 @@ namespace Common {
 		glDisable(GL_BLEND);
 	}
 
-	void RectangleShape::UpdateTransform() {
+	void RectangleShape::UpdateTransform()
+	{
 		// Inner rect transform
 		m_transform =
 			MatrixTransform::CreateTranslation(m_rect.x + m_leftBorderSize, m_rect.y + m_bottomBorderSize, 0.0f) *

@@ -5,9 +5,12 @@
 #include "Input.h"
 #include "WindowManager.h"
 
-namespace Common {
-	bool Library::Initialize() {
-		if (glfwInit() == GLFW_FALSE) {
+namespace Common
+{
+	bool Library::Initialize()
+	{
+		if (glfwInit() == GLFW_FALSE)
+		{
 			return false;
 		}
 
@@ -21,7 +24,8 @@ namespace Common {
 
 		glfwSwapInterval(1);
 
-		if (glewInit() != GLEW_OK) {
+		if (glewInit() != GLEW_OK)
+		{
 			WindowManager::Cleanup();
 			glfwTerminate();
 
@@ -36,7 +40,8 @@ namespace Common {
 		return true;
 	}
 
-	void Library::Cleanup() {
+	void Library::Cleanup()
+	{
 		glfwTerminate();
 
 		WindowManager::Cleanup();

@@ -2,17 +2,22 @@
 
 #include <cmath>
 
-namespace Common {
+namespace Common
+{
 	Input* Input::m_instance = nullptr;
 
-	Input::Input() {
+	Input::Input()
+	{
 	}
 
-	Input::~Input() {
+	Input::~Input()
+	{
 	}
 
-	bool Input::IsPressed(int key) {
-		if (nullptr == m_instance) {
+	bool Input::IsPressed(int key)
+	{
+		if (nullptr == m_instance)
+		{
 			return false;
 		}
 
@@ -20,8 +25,10 @@ namespace Common {
 			m_instance->m_pressedKeys.end());
 	}
 
-	bool Input::IsReleased(int key) {
-		if (nullptr == m_instance) {
+	bool Input::IsReleased(int key)
+	{
+		if (nullptr == m_instance)
+		{
 			return false;
 		}
 
@@ -29,8 +36,10 @@ namespace Common {
 			m_instance->m_releasedKeys.end());
 	}
 
-	bool Input::IsDown(int key) {
-		if (nullptr == m_instance) {
+	bool Input::IsDown(int key)
+	{
+		if (nullptr == m_instance)
+		{
 			return false;
 		}
 
@@ -38,48 +47,61 @@ namespace Common {
 			m_instance->m_heldKeys.end());
 	}
 
-	void Input::GetMousePosition(int* mouseX, int* mouseY) {
-		if (nullptr == m_instance) {
+	void Input::GetMousePosition(int* mouseX, int* mouseY)
+	{
+		if (nullptr == m_instance)
+		{
 			return;
 		}
 
-		if (nullptr != mouseX) {
+		if (nullptr != mouseX)
+		{
 			*mouseX = m_instance->m_mousePositionX;
 		}
-		if (nullptr != mouseY) {
+		if (nullptr != mouseY)
+		{
 			*mouseY = m_instance->m_mousePositionY;
 		}
 	}
 
-	int Input::GetMouseX() {
-		if (nullptr == m_instance) {
+	int Input::GetMouseX()
+	{
+		if (nullptr == m_instance)
+		{
 			return 0;
 		}
 
 		return m_instance->m_mousePositionX;
 	}
 
-	int Input::GetMouseY() {
-		if (nullptr == m_instance) {
+	int Input::GetMouseY()
+	{
+		if (nullptr == m_instance)
+		{
 			return 0;
 		}
 
 		return m_instance->m_mousePositionY;
 	}
 
-	void Input::Initialize() {
-		if (nullptr == m_instance) {
+	void Input::Initialize()
+	{
+		if (nullptr == m_instance)
+		{
 			m_instance = new Input();
 		}
 	}
 
-	void Input::Cleanup() {
+	void Input::Cleanup()
+	{
 		delete m_instance;
 		m_instance = nullptr;
 	}
 
-	void Input::Update() {
-		if (nullptr == m_instance) {
+	void Input::Update()
+	{
+		if (nullptr == m_instance)
+		{
 			return;
 		}
 
@@ -87,16 +109,20 @@ namespace Common {
 		m_instance->m_releasedKeys.clear();
 	}
 
-	void Input::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-		if (nullptr == m_instance) {
+	void Input::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+	{
+		if (nullptr == m_instance)
+		{
 			return;
 		}
 
-		if (action == GLFW_PRESS) {
+		if (action == GLFW_PRESS)
+		{
 			m_instance->m_pressedKeys.insert(button);
 			m_instance->m_heldKeys.insert(button);
 		}
-		else if (action == GLFW_RELEASE) {
+		else if (action == GLFW_RELEASE)
+		{
 			m_instance->m_pressedKeys.erase(button);
 			m_instance->m_heldKeys.erase(button);
 
@@ -104,16 +130,20 @@ namespace Common {
 		}
 	}
 
-	void Input::KeyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods) {
-		if (nullptr == m_instance) {
+	void Input::KeyCallback(GLFWwindow* window, int key, int scanCode, int action, int mods)
+	{
+		if (nullptr == m_instance)
+		{
 			return;
 		}
 
-		if (action == GLFW_PRESS) {
+		if (action == GLFW_PRESS)
+		{
 			m_instance->m_pressedKeys.insert(key);
 			m_instance->m_heldKeys.insert(key);
 		}
-		else if (action == GLFW_RELEASE) {
+		else if (action == GLFW_RELEASE)
+		{
 			m_instance->m_pressedKeys.erase(key);
 			m_instance->m_heldKeys.erase(key);
 
@@ -121,8 +151,10 @@ namespace Common {
 		}
 	}
 
-	void Input::CursorCallback(GLFWwindow* window, double xPos, double yPos) {
-		if (nullptr == m_instance) {
+	void Input::CursorCallback(GLFWwindow* window, double xPos, double yPos)
+	{
+		if (nullptr == m_instance)
+		{
 			return;
 		}
 
