@@ -6,27 +6,21 @@ namespace GameClones
 {
 	namespace Sudoku
 	{
-		struct SudokuGridLocation
+		struct SudokuCell
 		{
 			size_t row = 0;
 			size_t column = 0;
 
-			SudokuGridLocation() : SudokuGridLocation(0, 0)
-			{
-			}
+			char character = ' ';
 
-			SudokuGridLocation(const size_t& r, const size_t& c)
-			{
-				row = r;
-				column = c;
-			}
+			bool isModifiable = true;
 		};
 
 		class SudokuGrid
 		{
 		private:
 			size_t m_numRows, m_numColumns;
-			std::vector<char> m_grid;
+			std::vector<SudokuCell> m_grid;
 			
 		public:
 			SudokuGrid();
@@ -40,11 +34,13 @@ namespace GameClones
 			void SetCharacterAt(const size_t& row, const size_t& column, const char& character);
 			char GetCharacterAt(const size_t& row, const size_t& column) const;
 
+			void SetCellModifiableFlag(const size_t& row, const size_t& column, const bool& isModifiable);
+			bool IsCellModifiable(const size_t& row, const size_t& column) const;
+
 		private:
 			bool IsValidLocation(const size_t& row, const size_t& column) const;
 
 			int Get1DIndexFrom2D(const size_t& row, const size_t& column) const;
-			SudokuGridLocation UnflattenIndex(const size_t& flatIndex) const;
 		};
 	}
 }

@@ -10,6 +10,7 @@ namespace Common {
 	public:
 		static const Color White;
 		static const Color Black;
+		static const Color Gray;
 		static const Color Red;
 		static const Color Green;
 		static const Color Blue;

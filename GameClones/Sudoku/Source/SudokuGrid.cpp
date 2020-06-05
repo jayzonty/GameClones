@@ -14,7 +14,7 @@ namespace GameClones
 			, m_numColumns(numColumns)
 			, m_grid()
 		{
-			m_grid.resize(numRows * numColumns, ' ');
+			m_grid.resize(numRows * numColumns);
 		}
 
 		SudokuGrid::~SudokuGrid()
@@ -31,16 +31,17 @@ namespace GameClones
 		{
 			for (size_t i = 0; i < m_grid.size(); ++i)
 			{
-				m_grid[i] = ' ';
+				m_grid[i].character = ' ';
+				m_grid[i].isModifiable = true;
 			}
 		}
 
 		void SudokuGrid::SetCharacterAt(const size_t & row, const size_t & column, const char & character)
 		{
-			if (IsValidLocation(row, column))
+			if (IsValidLocation(row, column) && IsCellModifiable(row, column))
 			{
 				size_t index = Get1DIndexFrom2D(row, column);
-				m_grid[index] = character;
+				m_grid[index].character = character;
 			}
 		}
 
@@ -49,10 +50,30 @@ namespace GameClones
 			if (IsValidLocation(row, column))
 			{
 				size_t index = Get1DIndexFrom2D(row, column);
-				return m_grid[index];
+				return m_grid[index].character;
 			}
 
 			return ' ';
+		}
+
+		void SudokuGrid::SetCellModifiableFlag(const size_t & row, const size_t & column, const bool & isModifiable)
+		{
+			if (IsValidLocation(row, column))
+			{
+				size_t index = Get1DIndexFrom2D(row, column);
+				m_grid[index].isModifiable = isModifiable;
+			}
+		}
+
+		bool SudokuGrid::IsCellModifiable(const size_t & row, const size_t & column) const
+		{
+			if (IsValidLocation(row, column))
+			{
+				size_t index = Get1DIndexFrom2D(row, column);
+				return m_grid[index].isModifiable;
+			}
+
+			return false;
 		}
 
 		bool SudokuGrid::IsValidLocation(const size_t & row, const size_t & column) const
@@ -65,13 +86,6 @@ namespace GameClones
 		{
 			size_t ret = row * m_numColumns + column;
 			return ret;
-		}
-
-		SudokuGridLocation SudokuGrid::UnflattenIndex(const size_t & flatIndex) const
-		{
-			size_t row = flatIndex / m_numColumns;
-			size_t column = flatIndex % m_numColumns;
-			return SudokuGridLocation(row, column);
 		}
 	}
 }

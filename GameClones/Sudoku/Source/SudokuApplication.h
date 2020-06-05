@@ -4,6 +4,7 @@
 #include "Common/RenderTarget.h"
 
 #include "SudokuGrid.h"
+#include "SudokuGridChecker.h"
 #include "SudokuGridRenderer.h"
 
 namespace GameClones
@@ -16,6 +17,7 @@ namespace GameClones
 			Common::RenderTarget m_renderTarget;
 
 			SudokuGrid m_sudokuGrid;
+			SudokuGridChecker m_sudokuGridChecker;
 			SudokuGridRenderer m_sudokuGridRenderer;
 
 			size_t m_selectedRow;

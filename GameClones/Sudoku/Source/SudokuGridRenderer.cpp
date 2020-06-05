@@ -52,6 +52,10 @@ namespace GameClones
 					{
 						cellColor = Common::Color::Cyan;
 					}
+					else if (!sudokuGrid.IsCellModifiable(row, column))
+					{
+						cellColor = Common::Color(200, 200, 200, 255);
+					}
 					m_rectangleShape.SetFillColor(cellColor);
 
 					float leftBorderSize = 1.0f;
