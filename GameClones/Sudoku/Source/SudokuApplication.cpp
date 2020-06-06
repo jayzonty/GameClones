@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Common/Input.h"
+#include "Common/Math.h"
 #include "Common/Window.h"
 #include "Common/WindowManager.h"
 
@@ -64,9 +65,24 @@ namespace GameClones
 
 				m_selectedRow = static_cast<size_t>(mouseY / GetCellSize());
 				m_selectedColumn = static_cast<size_t>(mouseX / GetCellSize());
-
-				m_sudokuGridRenderer.SetSelectedCell(m_selectedRow, m_selectedColumn);
 			}
+			else if (Common::Input::IsPressed(Common::Input::LEFT))
+			{
+				m_selectedColumn = Common::Math::Max<size_t>(m_selectedColumn - 1, 0);
+			}
+			else if (Common::Input::IsPressed(Common::Input::RIGHT))
+			{
+				m_selectedColumn = Common::Math::Min<size_t>(m_selectedColumn + 1, numColumns - 1);
+			}
+			else if (Common::Input::IsPressed(Common::Input::UP))
+			{
+				m_selectedRow = Common::Math::Max<size_t>(m_selectedRow - 1, 0);
+			}
+			else if (Common::Input::IsPressed(Common::Input::DOWN))
+			{
+				m_selectedRow = Common::Math::Min<size_t>(m_selectedRow + 1, numRows - 1);
+			}
+			m_sudokuGridRenderer.SetSelectedCell(m_selectedRow, m_selectedColumn);
 
 			if (m_sudokuGrid.IsCellModifiable(m_selectedRow, m_selectedColumn))
 			{
