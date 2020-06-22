@@ -4,6 +4,9 @@
 #include <vector>
 
 #include "Common/BaseApplication.h"
+#include "Common/Button.h"
+#include "Common/Font.h"
+#include "Common/Random.h"
 #include "Common/RenderTarget.h"
 
 #include "SudokuGrid.h"
@@ -17,7 +20,11 @@ namespace GameClones
 		class SudokuApplication : public Common::BaseApplication
 		{
 		private:
+			Common::Random m_random;
 			Common::RenderTarget m_renderTarget;
+
+			Common::Font m_buttonsFont;
+			Common::Button m_newGameButton;
 
 			SudokuGrid m_sudokuGrid;
 			SudokuGridChecker m_sudokuGridChecker;
@@ -41,6 +48,8 @@ namespace GameClones
 			void Cleanup() override;
 
 		private:
+			void NewGame();
+
 			float GetCellSize() const;
 
 			void ReadPuzzleStrings(const std::string& puzzlesFile, std::vector<std::string>& puzzleStrings);

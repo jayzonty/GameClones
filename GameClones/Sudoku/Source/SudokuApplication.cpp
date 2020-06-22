@@ -1,5 +1,6 @@
 #include "SudokuApplication.h"
 
+#include <functional>
 #include <iostream>
 
 #include "Common/FileUtils.h"
@@ -14,7 +15,10 @@ namespace GameClones
 	{
 		SudokuApplication::SudokuApplication()
 			: BaseApplication("Sudoku")
+			, m_random()
 			, m_renderTarget()
+			, m_buttonsFont()
+			, m_newGameButton()
 			, m_sudokuGrid()
 			, m_sudokuGridChecker()
 			, m_sudokuGridRenderer()
@@ -30,10 +34,10 @@ namespace GameClones
 
 		void SudokuApplication::SetupWindow(Common::Window* window)
 		{
-			window->SetSize(900, 900);
+			window->SetSize(1200, 900);
 			window->SetTitle("Sudoku");
 
-			m_renderTarget.SetSize(900, 900);
+			m_renderTarget.SetSize(1200, 900);
 		}
 
 		void SudokuApplication::Init()
@@ -44,6 +48,15 @@ namespace GameClones
 			{
 				LoadGridFromPuzzleString(m_puzzleStrings[0], m_sudokuGrid);
 			}
+
+			m_buttonsFont.Load("Resources/Fonts/DS-Digital/DS-DIGIB.TTF");
+
+			m_newGameButton.SetFont(m_buttonsFont);
+
+			m_newGameButton.SetPosition(950.0f, 450.0f);
+			m_newGameButton.SetSize(200.0f, 100.0f);
+			m_newGameButton.SetText("New Game");
+			m_newGameButton.AddClickListener(std::bind(&SudokuApplication::NewGame, this));
 		}
 
 		void SudokuApplication::Update(float deltaTime)
@@ -56,8 +69,15 @@ namespace GameClones
 				int mouseX = 0, mouseY = 0;
 				Common::Input::GetMousePosition(&mouseX, &mouseY);
 
-				m_selectedRow = static_cast<size_t>(mouseY / GetCellSize());
-				m_selectedColumn = static_cast<size_t>(mouseX / GetCellSize());
+				if (m_newGameButton.GetBounds().ContainsPoint(mouseX, 900 - mouseY))
+				{
+					m_newGameButton.Click();
+				}
+				else
+				{
+					m_selectedRow = static_cast<size_t>(mouseY / GetCellSize());
+					m_selectedColumn = static_cast<size_t>(mouseX / GetCellSize());
+				}
 			}
 			else if (Common::Input::IsPressed(Common::Input::LEFT))
 			{
@@ -140,10 +160,21 @@ namespace GameClones
 		void SudokuApplication::Draw()
 		{
 			m_sudokuGridRenderer.RenderSudokuGrid(m_renderTarget, m_sudokuGrid, GetCellSize());
+
+			m_renderTarget.Draw(m_newGameButton);
 		}
 
 		void SudokuApplication::Cleanup()
 		{
+		}
+
+		void SudokuApplication::NewGame()
+		{
+			if (m_puzzleStrings.size() > 0)
+			{
+				int randomPuzzleIndex = m_random(0, m_puzzleStrings.size());
+				LoadGridFromPuzzleString(m_puzzleStrings[randomPuzzleIndex], m_sudokuGrid);
+			}
 		}
 
 		float SudokuApplication::GetCellSize() const
