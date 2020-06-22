@@ -8,6 +8,7 @@
 #include "Common/Font.h"
 #include "Common/Random.h"
 #include "Common/RenderTarget.h"
+#include "Common/Text.h"
 
 #include "SudokuGrid.h"
 #include "SudokuGridChecker.h"
@@ -25,6 +26,8 @@ namespace GameClones
 
 			Common::Font m_buttonsFont;
 			Common::Button m_newGameButton;
+			Common::Button m_checkSolutionButton;
+			Common::Text m_resultText;
 
 			SudokuGrid m_sudokuGrid;
 			SudokuGridChecker m_sudokuGridChecker;
@@ -49,6 +52,7 @@ namespace GameClones
 
 		private:
 			void NewGame();
+			void CheckSolution();
 
 			float GetCellSize() const;
 

@@ -3,6 +3,7 @@
 #include <functional>
 #include <iostream>
 
+#include "Common/Color.h"
 #include "Common/FileUtils.h"
 #include "Common/Input.h"
 #include "Common/Math.h"
@@ -19,6 +20,8 @@ namespace GameClones
 			, m_renderTarget()
 			, m_buttonsFont()
 			, m_newGameButton()
+			, m_checkSolutionButton()
+			, m_resultText()
 			, m_sudokuGrid()
 			, m_sudokuGridChecker()
 			, m_sudokuGridRenderer()
@@ -52,11 +55,22 @@ namespace GameClones
 			m_buttonsFont.Load("Resources/Fonts/DS-Digital/DS-DIGIB.TTF");
 
 			m_newGameButton.SetFont(m_buttonsFont);
-
-			m_newGameButton.SetPosition(950.0f, 450.0f);
+			m_newGameButton.SetPosition(950.0f, 500.0f);
 			m_newGameButton.SetSize(200.0f, 100.0f);
 			m_newGameButton.SetText("New Game");
 			m_newGameButton.AddClickListener(std::bind(&SudokuApplication::NewGame, this));
+
+			m_checkSolutionButton.SetFont(m_buttonsFont);
+			m_checkSolutionButton.SetPosition(950.0f, 380.0f);
+			m_checkSolutionButton.SetSize(200.0f, 100.0f);
+			m_checkSolutionButton.SetText("Check Solution");
+			m_checkSolutionButton.AddClickListener(std::bind(&SudokuApplication::CheckSolution, this));
+
+			m_resultText.SetFont(m_buttonsFont);
+			m_resultText.SetPosition(950.0f, 260.0f);
+			m_resultText.SetHorizontalAlignment(Common::Text::HorizontalAlignment::CENTER);
+			m_resultText.SetString("");
+			m_resultText.SetColor(Common::Color::White);
 		}
 
 		void SudokuApplication::Update(float deltaTime)
@@ -72,6 +86,10 @@ namespace GameClones
 				if (m_newGameButton.GetBounds().ContainsPoint(mouseX, 900 - mouseY))
 				{
 					m_newGameButton.Click();
+				}
+				else if (m_checkSolutionButton.GetBounds().ContainsPoint(mouseX, 900 - mouseY))
+				{
+					m_checkSolutionButton.Click();
 				}
 				else
 				{
@@ -99,60 +117,42 @@ namespace GameClones
 
 			if (m_sudokuGrid.IsCellModifiable(m_selectedRow, m_selectedColumn))
 			{
-				bool pressed = false;
 				// TODO: Should have a better way of doing this
 				if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA1, Common::Input::Key::KEYPAD1 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '1');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA2, Common::Input::Key::KEYPAD2 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '2');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA3, Common::Input::Key::KEYPAD3 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '3');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA4, Common::Input::Key::KEYPAD4 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '4');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA5, Common::Input::Key::KEYPAD5 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '5');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA6, Common::Input::Key::KEYPAD6 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '6');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA7, Common::Input::Key::KEYPAD7 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '7');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA8, Common::Input::Key::KEYPAD8 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '8');
-					pressed = true;
 				}
 				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA9, Common::Input::Key::KEYPAD9 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '9');
-					pressed = true;
-				}
-
-				if (pressed)
-				{
-					if (m_sudokuGridChecker.IsSolved(m_sudokuGrid))
-					{
-						std::cout << "You win!" << std::endl;
-					}
 				}
 			}
 		}
@@ -162,6 +162,8 @@ namespace GameClones
 			m_sudokuGridRenderer.RenderSudokuGrid(m_renderTarget, m_sudokuGrid, GetCellSize());
 
 			m_renderTarget.Draw(m_newGameButton);
+			m_renderTarget.Draw(m_checkSolutionButton);
+			m_renderTarget.Draw(m_resultText);
 		}
 
 		void SudokuApplication::Cleanup()
@@ -174,6 +176,20 @@ namespace GameClones
 			{
 				int randomPuzzleIndex = m_random(0, m_puzzleStrings.size());
 				LoadGridFromPuzzleString(m_puzzleStrings[randomPuzzleIndex], m_sudokuGrid);
+			}
+
+			m_resultText.SetString("");
+		}
+
+		void SudokuApplication::CheckSolution()
+		{
+			if (m_sudokuGridChecker.IsSolved(m_sudokuGrid))
+			{
+				m_resultText.SetString("Solved!");
+			}
+			else
+			{
+				m_resultText.SetString("Nope");
 			}
 		}
 
