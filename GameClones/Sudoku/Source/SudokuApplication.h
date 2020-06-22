@@ -1,5 +1,8 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "Common/BaseApplication.h"
 #include "Common/RenderTarget.h"
 
@@ -23,6 +26,8 @@ namespace GameClones
 			size_t m_selectedRow;
 			size_t m_selectedColumn;
 
+			std::vector<std::string> m_puzzleStrings;
+
 		public:
 			SudokuApplication();
 			~SudokuApplication();
@@ -37,6 +42,9 @@ namespace GameClones
 
 		private:
 			float GetCellSize() const;
+
+			void ReadPuzzleStrings(const std::string& puzzlesFile, std::vector<std::string>& puzzleStrings);
+			void LoadGridFromPuzzleString(const std::string& puzzleString, SudokuGrid& outGrid);
 		};
 	}
 }

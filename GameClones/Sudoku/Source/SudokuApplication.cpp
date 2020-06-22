@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "Common/FileUtils.h"
 #include "Common/Input.h"
 #include "Common/Math.h"
 #include "Common/Window.h"
@@ -19,6 +20,7 @@ namespace GameClones
 			, m_sudokuGridRenderer()
 			, m_selectedRow(0)
 			, m_selectedColumn(0)
+			, m_puzzleStrings()
 		{
 		}
 
@@ -36,20 +38,11 @@ namespace GameClones
 
 		void SudokuApplication::Init()
 		{
-			// Temporary!
-			// Random sudoku puzzle found online encoded as a long string
-			const char* puzzle = "  536 4  |962  4 7 |3 4 29 6 |82 94  13| 49 3  57|   2  98 |4 6  1  2|   693  5|  3 8    ";
-			for (size_t i = 0; i < 9; ++i)
+			ReadPuzzleStrings("Resources/Data/puzzles.txt", m_puzzleStrings);
+
+			if (m_puzzleStrings.size() > 0)
 			{
-				for (size_t j = 0; j < 10; ++j)
-				{
-					if (j < 9)
-					{
-						size_t index = i * 10 + j;
-						m_sudokuGrid.SetCharacterAt(i, j, puzzle[index]);
-						m_sudokuGrid.SetCellModifiableFlag(i, j, puzzle[index] == ' ');
-					}
-				}
+				LoadGridFromPuzzleString(m_puzzleStrings[0], m_sudokuGrid);
 			}
 		}
 
@@ -156,6 +149,34 @@ namespace GameClones
 		float SudokuApplication::GetCellSize() const
 		{
 			return 100.0f; // temporary
+		}
+
+		void SudokuApplication::ReadPuzzleStrings(const std::string& puzzlesFile, std::vector<std::string>& puzzleStrings)
+		{
+			Common::FileUtils::ReadLinesFromFile(puzzlesFile.c_str(), puzzleStrings);
+		}
+
+		void SudokuApplication::LoadGridFromPuzzleString(const std::string & puzzleString, SudokuGrid & outGrid)
+		{
+			outGrid.ClearGrid();
+
+			for (size_t i = 0; i < 9; ++i)
+			{
+				for (size_t j = 0; j < 10; ++j)
+				{
+					if (j < 9)
+					{
+						size_t index = i * 10 + j;
+						char c = puzzleString[index];
+						if (c == '.')
+						{
+							c = ' ';
+						}
+						outGrid.SetCharacterAt(i, j, c);
+						outGrid.SetCellModifiableFlag(i, j, c == ' ');
+					}
+				}
+			}
 		}
 	}
 }
