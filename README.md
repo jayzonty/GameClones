@@ -20,4 +20,4 @@
       - Add a puzzle solver
       - Add a timer
 10. Chess
-   - Start date: June 23, 2020
+    - Start date: June 23, 2020
