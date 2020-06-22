@@ -14,9 +14,10 @@
 9. Sudoku
    - Start date: June 3, 2020
    - End date: June 22, 2020
-   
    - Things that can be added:
       - Add more puzzles
       - Add a puzzle generator
       - Add a puzzle solver
       - Add a timer
+10. Chess
+   - Start date: June 23, 2020
