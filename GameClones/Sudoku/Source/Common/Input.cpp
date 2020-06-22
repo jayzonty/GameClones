@@ -25,6 +25,19 @@ namespace Common
 			m_instance->m_pressedKeys.end());
 	}
 
+	bool Input::IsAnyPressed(std::initializer_list<int> keys)
+	{
+		for (int key : keys)
+		{
+			if (IsPressed(key))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	bool Input::IsReleased(int key)
 	{
 		if (nullptr == m_instance)
@@ -36,6 +49,19 @@ namespace Common
 			m_instance->m_releasedKeys.end());
 	}
 
+	bool Input::IsAnyReleased(std::initializer_list<int> keys)
+	{
+		for (int key : keys)
+		{
+			if (IsReleased(key))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	bool Input::IsDown(int key)
 	{
 		if (nullptr == m_instance)
@@ -45,6 +71,19 @@ namespace Common
 
 		return (m_instance->m_heldKeys.find(key) !=
 			m_instance->m_heldKeys.end());
+	}
+
+	bool Input::IsAnyDown(std::initializer_list<int> keys)
+	{
+		for (int key : keys)
+		{
+			if (IsDown(key))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	void Input::GetMousePosition(int* mouseX, int* mouseY)

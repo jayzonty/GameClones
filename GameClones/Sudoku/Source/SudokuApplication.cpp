@@ -88,47 +88,47 @@ namespace GameClones
 			{
 				bool pressed = false;
 				// TODO: Should have a better way of doing this
-				if (Common::Input::IsPressed(Common::Input::Key::ALPHA1))
+				if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA1, Common::Input::Key::KEYPAD1 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '1');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA2))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA2, Common::Input::Key::KEYPAD2 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '2');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA3))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA3, Common::Input::Key::KEYPAD3 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '3');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA4))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA4, Common::Input::Key::KEYPAD4 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '4');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA5))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA5, Common::Input::Key::KEYPAD5 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '5');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA6))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA6, Common::Input::Key::KEYPAD6 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '6');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA7))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA7, Common::Input::Key::KEYPAD7 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '7');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA8))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA8, Common::Input::Key::KEYPAD8 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '8');
 					pressed = true;
 				}
-				else if (Common::Input::IsPressed(Common::Input::Key::ALPHA9))
+				else if (Common::Input::IsAnyPressed({ Common::Input::Key::ALPHA9, Common::Input::Key::KEYPAD9 }))
 				{
 					m_sudokuGrid.SetCharacterAt(m_selectedRow, m_selectedColumn, '9');
 					pressed = true;

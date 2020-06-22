@@ -3,6 +3,7 @@
 
 #include <GLFW/glfw3.h>
 
+#include <initializer_list>
 #include <unordered_set>
 
 namespace Common
@@ -33,7 +34,18 @@ namespace Common
 			ALPHA6 = GLFW_KEY_6,
 			ALPHA7 = GLFW_KEY_7,
 			ALPHA8 = GLFW_KEY_8,
-			ALPHA9 = GLFW_KEY_9
+			ALPHA9 = GLFW_KEY_9,
+
+			KEYPAD0 = GLFW_KEY_KP_0,
+			KEYPAD1 = GLFW_KEY_KP_1,
+			KEYPAD2 = GLFW_KEY_KP_2,
+			KEYPAD3 = GLFW_KEY_KP_3,
+			KEYPAD4 = GLFW_KEY_KP_4,
+			KEYPAD5 = GLFW_KEY_KP_5,
+			KEYPAD6 = GLFW_KEY_KP_6,
+			KEYPAD7 = GLFW_KEY_KP_7,
+			KEYPAD8 = GLFW_KEY_KP_8,
+			KEYPAD9 = GLFW_KEY_KP_9
 		};
 
 		enum Button
@@ -64,11 +76,20 @@ namespace Common
 		// Is the key/button just pressed during this frame?
 		static bool IsPressed(int key);
 
+		// Is any key in the provided list pressed during this frame?
+		static bool IsAnyPressed(std::initializer_list<int> keys);
+
 		// Is the key/button just released in this frame?
 		static bool IsReleased(int key);
 
+		// Is any key in the provided list released during this frame?
+		static bool IsAnyReleased(std::initializer_list<int> keys);
+
 		// Is the key/button being pressed/held down?
 		static bool IsDown(int key);
+
+		// Is any key in the provided list being pressed/held down?
+		static bool IsAnyDown(std::initializer_list<int> keys);
 
 		static void GetMousePosition(int* mouseX, int* mouseY);
 
