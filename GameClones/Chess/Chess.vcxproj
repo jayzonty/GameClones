@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ChessApplication.cpp" />
+    <ClCompile Include="Source\ChessBoard.cpp" />
     <ClCompile Include="Source\Common\BaseApplication.cpp" />
     <ClCompile Include="Source\Common\Button.cpp" />
     <ClCompile Include="Source\Common\Color.cpp" />
@@ -38,6 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ChessApplication.h" />
+    <ClInclude Include="Source\ChessBoard.h" />
+    <ClInclude Include="Source\ChessPiece.h" />
     <ClInclude Include="Source\Common\BaseApplication.h" />
     <ClInclude Include="Source\Common\Button.h" />
     <ClInclude Include="Source\Common\Color.h" />

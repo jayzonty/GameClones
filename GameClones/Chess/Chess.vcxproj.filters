@@ -69,6 +69,9 @@
     <ClCompile Include="Source\ChessApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ChessBoard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Common\BaseApplication.h">
@@ -150,6 +153,12 @@
       <Filter>Header Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="Source\ChessApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChessBoard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChessPiece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
