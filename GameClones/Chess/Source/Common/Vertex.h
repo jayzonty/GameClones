@@ -13,6 +13,9 @@ namespace Common
 		float y;
 		float z;
 
+		float u;
+		float v;
+
 		unsigned char r;
 		unsigned char g;
 		unsigned char b;

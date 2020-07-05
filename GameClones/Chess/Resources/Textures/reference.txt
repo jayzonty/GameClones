@@ -1,0 +1,5 @@
+Source:
+https://opengameart.org/content/chess-pieces-and-board-squares
+
+Attribution:
+JohnPablok's improved Cburnett chess set.
