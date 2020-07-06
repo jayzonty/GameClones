@@ -1,10 +1,15 @@
 #pragma once
 
+#include <unordered_map>
+#include <vector>
+
 #include "Common/BaseApplication.h"
 #include "Common/RectangleShape.h"
 #include "Common/RenderTarget.h"
+#include "Common/Sprite.h"
 
 #include "ChessBoard.h"
+#include "ChessPiece.h"
 
 namespace GameClones
 {
@@ -13,6 +18,8 @@ namespace GameClones
 		class ChessApplication : public Common::BaseApplication
 		{
 		private:
+			// Vector represents the player indices (m_pieceSprites[0] is the sprite map for player 1, etc...)
+			std::vector<std::unordered_map<ChessPiece::Type, Common::Sprite*>> m_pieceSprites;
 			Common::RenderTarget m_renderTarget;
 
 			Common::RectangleShape m_rectangleShape;
@@ -29,6 +36,9 @@ namespace GameClones
 			void Update(float deltaTime) override;
 			void Draw() override;
 			void Cleanup() override;
+
+		private:
+			void ResetBoard();
 		};
 	}
 }

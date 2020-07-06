@@ -11,13 +11,8 @@ namespace GameClones
 		class ChessBoard
 		{
 		private:
-			struct Cell
-			{
-				ChessPiece* piece = nullptr;
-			};
-
 			size_t m_numRows, m_numColumns;
-			std::vector<Cell> m_grid;
+			std::vector<ChessPiece*> m_grid;
 
 		public:
 

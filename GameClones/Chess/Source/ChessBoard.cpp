@@ -14,11 +14,12 @@ namespace GameClones
 			, m_numColumns(numColumns)
 			, m_grid()
 		{
-			m_grid.resize(numRows * numColumns);
+			m_grid.resize(numRows * numColumns, nullptr);
 		}
 
 		ChessBoard::~ChessBoard()
 		{
+			ClearGrid();
 		}
 
 		void ChessBoard::GetSize(size_t & outNumRows, size_t & outNumColumns) const
@@ -31,7 +32,11 @@ namespace GameClones
 		{
 			for (size_t i = 0; i < m_grid.size(); ++i)
 			{
-				m_grid[i].piece = nullptr;
+				if (m_grid[i] != nullptr)
+				{
+					delete m_grid[i];
+					m_grid[i] = nullptr;
+				}
 			}
 		}
 
@@ -40,7 +45,7 @@ namespace GameClones
 			if (IsValidLocation(row, column))
 			{
 				size_t index = Get1DIndexFrom2D(row, column);
-				m_grid[index].piece = piece;
+				m_grid[index] = piece;
 			}
 		}
 
@@ -49,7 +54,7 @@ namespace GameClones
 			if (IsValidLocation(row, column))
 			{
 				size_t index = Get1DIndexFrom2D(row, column);
-				return m_grid[index].piece;
+				return m_grid[index];
 			}
 
 			return nullptr;
