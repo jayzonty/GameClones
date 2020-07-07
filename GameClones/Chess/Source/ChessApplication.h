@@ -25,6 +25,9 @@ namespace GameClones
 			Common::RectangleShape m_rectangleShape;
 			ChessBoard m_chessBoard;
 
+			ChessPiece* m_draggedPiece;
+			int prevCellX, prevCellY; // Previous cell position of a dragged piece
+
 		public:
 			ChessApplication();
 			~ChessApplication();

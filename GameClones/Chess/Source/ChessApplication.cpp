@@ -1,6 +1,9 @@
 #include "ChessApplication.h"
 
+#include <iostream>
+
 #include "Common/Color.h"
+#include "Common/Input.h"
 #include "Common/Texture.h"
 
 namespace GameClones
@@ -12,6 +15,7 @@ namespace GameClones
 			, m_renderTarget()
 			, m_rectangleShape()
 			, m_chessBoard(8, 8)
+			, m_draggedPiece(nullptr)
 		{
 		}
 
@@ -102,6 +106,37 @@ namespace GameClones
 
 		void ChessApplication::Update(float deltaTime)
 		{
+			int mouseX = 0, mouseY = 0;
+			int cellX = -1, cellY = -1;
+			Common::Input::GetMousePosition(&mouseX, &mouseY);
+			mouseY = 720 - mouseY;
+			cellX = static_cast<int>(mouseX / 90.0f);
+			cellY = static_cast<int>(mouseY / 90.0f);
+
+			if (m_draggedPiece == nullptr)
+			{
+				if (Common::Input::IsPressed(Common::Input::LEFT_MOUSE))
+				{
+					m_draggedPiece = m_chessBoard.GetPieceAt(cellX, cellY);
+					if (m_draggedPiece != nullptr)
+					{
+						prevCellX = cellX;
+						prevCellY = cellY;
+					}
+				}
+			}
+			else
+			{
+				if (Common::Input::IsReleased(Common::Input::LEFT_MOUSE))
+				{
+					if (m_draggedPiece != nullptr)
+					{
+						m_chessBoard.SetPieceAt(prevCellX, prevCellY, nullptr);
+						m_chessBoard.SetPieceAt(cellX, cellY, m_draggedPiece);
+						m_draggedPiece = nullptr;
+					}
+				}
+			}
 		}
 
 		void ChessApplication::Draw()
@@ -129,7 +164,13 @@ namespace GameClones
 					m_renderTarget.Draw(m_rectangleShape);
 
 					isDarkColoredSquare = !isDarkColoredSquare;
+				}
+			}
 
+			for (size_t y = 0; y < boardHeight; ++y)
+			{
+				for (size_t x = 0; x < boardWidth; ++x)
+				{
 					// Draw piece
 					ChessPiece* chessPiece = m_chessBoard.GetPieceAt(x, y);
 					if (chessPiece != nullptr)
@@ -137,7 +178,19 @@ namespace GameClones
 						Common::Sprite* sprite = m_pieceSprites[chessPiece->GetPlayerIndex()][chessPiece->GetType()];
 						if (sprite != nullptr)
 						{
-							sprite->SetPosition(x * 90.0f + 15.0f, y * 90.0f + 10.0f);
+							if (chessPiece == m_draggedPiece)
+							{
+								int mouseX = 0, mouseY = 0;
+								Common::Input::GetMousePosition(&mouseX, &mouseY);
+								mouseY = 720 - mouseY;
+
+								sprite->SetPosition(mouseX - 30.0f, mouseY - 30.0f);
+							}
+							else
+							{
+								sprite->SetPosition(x * 90.0f + 15.0f, y * 90.0f + 10.0f);
+							}
+							
 							sprite->SetSize(60.0f, 60.0f);
 							
 							m_renderTarget.Draw(*sprite);
