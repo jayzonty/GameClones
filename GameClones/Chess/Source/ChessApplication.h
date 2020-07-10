@@ -7,9 +7,11 @@
 #include "Common/RectangleShape.h"
 #include "Common/RenderTarget.h"
 #include "Common/Sprite.h"
+#include "Common/Vector.h"
 
 #include "ChessBoard.h"
 #include "ChessPiece.h"
+#include "ChessRuleSet.h"
 
 namespace GameClones
 {
@@ -27,6 +29,9 @@ namespace GameClones
 
 			ChessPiece* m_draggedPiece;
 			int prevCellX, prevCellY; // Previous cell position of a dragged piece
+
+			std::vector<Common::Vector2> m_possibleCells;
+			ChessRuleSet* m_ruleSet;
 
 		public:
 			ChessApplication();

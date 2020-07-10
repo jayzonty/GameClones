@@ -43,6 +43,8 @@
     <ClInclude Include="Source\ChessApplication.h" />
     <ClInclude Include="Source\ChessBoard.h" />
     <ClInclude Include="Source\ChessPiece.h" />
+    <ClInclude Include="Source\ChessRuleSet.h" />
+    <ClInclude Include="Source\ChessStandardRuleSet.h" />
     <ClInclude Include="Source\Common\BaseApplication.h" />
     <ClInclude Include="Source\Common\Button.h" />
     <ClInclude Include="Source\Common\Color.h" />

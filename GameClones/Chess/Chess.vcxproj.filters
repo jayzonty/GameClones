@@ -176,5 +176,11 @@
     <ClInclude Include="Source\Common\Texture.h">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ChessRuleSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ChessStandardRuleSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,6 +6,8 @@
 #include "Common/Input.h"
 #include "Common/Texture.h"
 
+#include "ChessStandardRuleSet.h"
+
 namespace GameClones
 {
 	namespace Chess
@@ -16,6 +18,8 @@ namespace GameClones
 			, m_rectangleShape()
 			, m_chessBoard(8, 8)
 			, m_draggedPiece(nullptr)
+			, m_possibleCells()
+			, m_ruleSet(nullptr)
 		{
 		}
 
@@ -102,6 +106,8 @@ namespace GameClones
 			m_pieceSprites.back().insert({ ChessPiece::Type::King, blackKingSprite });
 
 			ResetBoard();
+
+			m_ruleSet = new ChessStandardRuleSet();
 		}
 
 		void ChessApplication::Update(float deltaTime)
@@ -122,6 +128,8 @@ namespace GameClones
 					{
 						prevCellX = cellX;
 						prevCellY = cellY;
+
+						m_ruleSet->GetPossibleCells(m_draggedPiece, Common::Vector2(cellX, cellY), m_chessBoard, m_possibleCells);
 					}
 				}
 			}
@@ -131,9 +139,19 @@ namespace GameClones
 				{
 					if (m_draggedPiece != nullptr)
 					{
-						m_chessBoard.SetPieceAt(prevCellX, prevCellY, nullptr);
-						m_chessBoard.SetPieceAt(cellX, cellY, m_draggedPiece);
+						for (size_t i = 0; i < m_possibleCells.size(); ++i)
+						{
+							if ((m_possibleCells[i].x == cellX) && (m_possibleCells[i].y == cellY))
+							{
+								m_chessBoard.SetPieceAt(prevCellX, prevCellY, nullptr);
+								m_chessBoard.SetPieceAt(cellX, cellY, m_draggedPiece);
+								m_draggedPiece->SetIsFirstMove(false);
+								break;
+							}
+						}
+						
 						m_draggedPiece = nullptr;
+						m_possibleCells.clear();
 					}
 				}
 			}
@@ -212,6 +230,9 @@ namespace GameClones
 				m_pieceSprites[i].clear();
 			}
 			m_pieceSprites.clear();
+
+			delete m_ruleSet;
+			m_ruleSet = nullptr;
 		}
 
 		void ChessApplication::ResetBoard()
