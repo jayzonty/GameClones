@@ -31,6 +31,7 @@ namespace GameClones
 
 				if (chessPiece->GetType() == ChessPiece::Type::Pawn)
 				{
+					// Basic pawn movement
 					int offset = chessPiece->GetPlayerIndex() == 0 ? 1 : -1;
 					int y1 = y + offset;
 					if ((0 <= y1 && y1 < height) && (chessBoard.GetPieceAt(x, y1) == nullptr))
@@ -45,6 +46,22 @@ namespace GameClones
 								outResult.emplace_back(x, y2);
 							}
 						}
+					}
+
+					// Pawn capture
+					int x1 = x - 1;
+					if ((0 <= x1 && x1 < width) 
+						&& (chessBoard.GetPieceAt(x1, y1) != nullptr)
+						&& (chessBoard.GetPieceAt(x1, y1)->GetPlayerIndex() != chessPiece->GetPlayerIndex()))
+					{
+						outResult.emplace_back(x1, y1);
+					}
+					int x2 = x + 1;
+					if ((0 <= x2 && x2 < width)
+						&& (chessBoard.GetPieceAt(x2, y1) != nullptr)
+						&& (chessBoard.GetPieceAt(x2, y1)->GetPlayerIndex() != chessPiece->GetPlayerIndex()))
+					{
+						outResult.emplace_back(x2, y1);
 					}
 				}
 				if (chessPiece->GetType() == ChessPiece::Type::Knight)
