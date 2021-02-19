@@ -5,6 +5,7 @@
 
 #include "GLIncludes.h"
 
+#include <string>
 #include <vector>
 
 namespace Common {
